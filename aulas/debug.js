@@ -90,6 +90,7 @@ function cadastrarAluno(nome, idade, curso, nota) {
 }
 
 function exibirAlunos() {
+    console.clear()
     console.log('\n\nAlunos Cadastrados:\n\n');
     cadastrados.forEach((momento, index) => {console.log(`Nome: ${momento.nome.charAt(0).toUpperCase() + momento.nome.slice(1)} | Idade: ${momento.idade} | Curso: ${momento.curso} | Nota: ${momento.nota} -- ID: ${index + 1}\n`)})
     //iniciar()
@@ -137,6 +138,7 @@ function consultando(){
                 })
             }
         }) 
+
 iniciar()
 
 })
@@ -186,6 +188,78 @@ function maiorNota (){
             console.log(`A maior nota foi de ${cadastrados[ind].nome} e sua nota foi ${notaMaior}`);
     }
 
+function editarNome(array){
+    rl.question('Digite o nome para atualizar o cadastro:\n', inputName =>{
+        array.nome = inputName
+        iniciar()
+    })
+}
+function editarIdade(array){
+    rl.question('Digite o nome para atualizar o cadastro:\n', inputAge =>{
+        array.idade = parseInt(inputAge)
+        console.log('Informação atualizada com sucesso!')
+        iniciar()
+    })
+    
+}
+function editarCurso(array){
+    rl.question('Digite o nome para atualizar o cadastro:\n', inputCourse =>{
+        array.curso = inputCourse
+        console.log('Informação atualizada com sucesso!')
+        iniciar()
+    })
+    
+}
+function editarNota(array){
+    rl.question('Digite o nome para atualizar o cadastro:\n', inputNote =>{
+        array.nota = parseFloat(inputNote)
+        console.log('Informação atualizada com sucesso!')
+        iniciar()
+    })
+    
+}
+
+
+
+
+function editandoUser(id) {
+    cadastrados.forEach((alunoDados, indice) => {
+        if (id === indice + 1){
+            rl.question('Qual informação deseja editar:\n [1]Nome\n [2]Idade\n [3]Curso\n [4]Nota\n', inputEdit =>{
+                switch(inputEdit){
+                    case '1':
+                        editarNome(alunoDados)
+                        break;
+                    case '2':
+                        editarIdade(alunoDados)
+                        break;
+                    case '3':
+                        editarCurso(alunoDados)
+                        break;
+                    case '4':
+                        editarNota(alunoDados)
+                        break;
+                    default: console.log('Opção inválida, tente novamente...')
+                    editandoUser()
+                }
+            })
+        }
+    })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // menu iniciar
 
@@ -199,6 +273,7 @@ function iniciar() {
     console.log("4 - Excluir Um Aluno");
     console.log("5 - Maior Nota");//
     console.log("6 - Média das Notas");//
+    console.log("7 - Editar Dados");
     console.log("0 - SAIR");
     console.log("===============");
 
@@ -230,6 +305,16 @@ function iniciar() {
             break;
         case '0':
             rl.close();
+            break;
+        case '7':
+            console.log(`Lista de alunos disponíveis para exclusão`)
+            exibirAlunos()
+            rl.question('Digite o ID do aluno que deseja editar as informações: ', (inputId) => {
+                const id = parseInt(inputId.trim().toLocaleLowerCase())
+                editandoUser(id)
+                iniciar()
+            });
+            editandoUser()
             break;
         default:
             if (tentativa < 3) {
