@@ -30,26 +30,26 @@ const pessoa1 = {
     nome: 'bruno',
     idade: 22,
     curso: 'TI',
-    nota: 5
+    nota: 10
 }
 const pessoa2 = {
     nome: 'carlos',
     idade: 24,
     curso: 'ADM',
-    nota: 7
+    nota: 10
 }
 const pessoa3 = {
     nome: 'eduarda',
     idade: 50,
     curso: 'ENFERMAGEM',
-    nota: 9
+    nota: 7
 }
 
 const pessoa4 = {
     nome: 'bruno',
     idade: 50,
     curso: 'ADM',
-    nota: 9
+    nota: 6
 }
 
 const cadastrados = [pessoa1,pessoa2,pessoa3,pessoa4]
@@ -156,38 +156,40 @@ function mediaNotas() {
 function maiorNota (){
 
     let notaAtual = 0
-    let notaComparacao = cadastrados[0].nota
-    let notaMaior = 0
-    let ind = 0
+    let notaMaior = notaComparacao
+    const notaComparacao = cadastrados[0].nota
+    const notasMaiores = []
 
-    cadastrados.forEach((objetoAtual, index) => {
+    cadastrados.forEach((objetoAtual) => {
         notaAtual = objetoAtual.nota
         notaMaior = notaComparacao
         
         switch (true){
 
-            case (notaAtual > notaComparacao) :
+            case (notaAtual > notaMaior) :
             notaMaior = notaAtual
-            ind = index
             break;
             
-            case (notaAtual = notaComparacao) :
+            case (notaAtual = notaMaior) :
             notaMaior = notaAtual
-            ind = index
-            break;
-                
-            case (notaAtual < notaComparacao) :
-            notaMaior = notaComparacao
-            ind = index
             break;
                     
             }
 
-            })
-            
-            console.log(`A maior nota foi de ${cadastrados[ind].nome} e sua nota foi ${notaMaior}`);
-    }
+        })
 
+        cadastrados.forEach((objetoAtual) => {
+            
+            if (objetoAtual.nota === notaMaior){
+                notasMaiores.push(objetoAtual)
+            }
+
+        })
+        console.log(`\n-----------------------Lista de alunos com maiores notas--------------------`)
+        notasMaiores.forEach(todasMaiores => console.log(`\n Nome: ${todasMaiores.nome} --- Nota: ${notaMaior}`))
+        rl.close()
+    }
+    
 function editarNome(array){
     rl.question('Digite o nome para atualizar o cadastro:\n', inputName =>{
         array.nome = inputName
