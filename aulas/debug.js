@@ -18,16 +18,14 @@ console.log(`${multiplicar(2, 3)}`)
  */
 
 // exercicio
-
-
-const { resolveObjectURL } = require('buffer')
+const { log } = require('console')
 const readline = require('readline')
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 })
 
-
+let quantidadeNomesEncontrados = 0
 const pessoa1 = {
     nome: 'bruno',
     idade: 22,
@@ -43,15 +41,20 @@ const pessoa2 = {
 const pessoa3 = {
     nome: 'eduarda',
     idade: 50,
-    curso: 'Enfermagem',
+    curso: 'ENFERMAGEM',
     nota: 9
 }
-const alunosNomes = ['bruno', 'carlos', 'eduarda']
 
-const cadastrados = [pessoa1,pessoa2,pessoa3]
+const pessoa4 = {
+    nome: 'bruno',
+    idade: 50,
+    curso: 'ADM',
+    nota: 9
+}
+
+const cadastrados = [pessoa1,pessoa2,pessoa3,pessoa4]
 
 let tentativa = 0
-
 
 function inputDados(){
     console.clear()
@@ -71,10 +74,7 @@ function inputDados(){
 
 }
 
-
 function cadastrarAluno(nome, idade, curso, nota) {
-    
-    alunosNomes.push(nome)
 
     const objetoCadastro = {
         nome: nome,
@@ -87,23 +87,23 @@ function cadastrarAluno(nome, idade, curso, nota) {
 
     console.log('cadastro realizado com sucesso!\n\n\n')
     iniciar()
-
-
-
 }
 
 function exibirAlunos() {
     console.log('\n\nAlunos Cadastrados:\n\n');
     cadastrados.forEach((momento, index) => {console.log(`Nome: ${momento.nome.charAt(0).toUpperCase() + momento.nome.slice(1)} | Idade: ${momento.idade} | Curso: ${momento.curso} | Nota: ${momento.nota} -- ID: ${index + 1}\n`)})
-    iniciar()
+    //iniciar()
 }
 
 function excluirAluno(nome) {
 
     cadastrados.forEach((momento, index) => {
         if (momento.nome === nome){
-            alunosNomes.splice(index,1)
             cadastrados.splice(index,1)
+            console.log(`Aluno ${nome} excluído com sucesso!`)
+            iniciar()
+        } else if (cadastrados[index + 1] === undefined && momento.nome !== nome){
+            console.log(`Aluno ${nome} não encontrado!`)
             iniciar()
         }
     })
@@ -114,27 +114,33 @@ function excluirAluno(nome) {
 function consultando(){
     console.clear()
     rl.question('Digite o Nome do aluno que deseja consultar: ', inputname => {
-    const localizacao = alunosNomes.indexOf(inputname)
-    if (localizacao !== -1) {
-        //arrumar
-        console.log(`Aluno ${inputname} encontrado seu numero de cadastro é ${localizacao + 1}\n Deseja Editar? \n [1]Sim\n [2]Não\n.`)
-        iniciar()
-    } else {
-        rl.question(`Aluno ${inputname} não encontrado, Deseja cadastrar o aluno? \n[1]Sim\n [2]Não`, input =>{
-            const resposta = Number(input)
-            if(resposta === 1){
-                inputDados()
-            } else if(resposta === 2){
-                iniciar()
-            } else {
-                console.log('Opção inválida!');
-                iniciar()
-            }
-        })
+        const nome = inputname.trim().toLocaleLowerCase()
 
-    }
+            cadastrados.forEach((momento, index) => {
+                if (momento.nome === nome){
+                    quantidadeNomesEncontrados += 1
+                    console.log(`\nNome: ${momento.nome.charAt(0).toUpperCase() + momento.nome.slice(1)} | Idade: ${momento.idade} | Curso: ${momento.curso} | Nota: ${momento.nota} -- ID: ${index + 1}\n`)
+            } else if (index === cadastrados.length - 1 && quantidadeNomesEncontrados === 0){
+                rl.question(`Aluno ${inputname} não encontrado, Deseja cadastrar o aluno? \n[1]Sim\n [2]Não`, input =>{
+                    const resposta = Number(input)
+                    switch (resposta){
+                    case 1:
+                    inputDados()
+                    break;
+                    case 2:
+                    iniciar()
+                    break;
+                    default:
+                    console.log('Opção inválida!');
+                    iniciar()
+                    }
+                })
+            }
+        }) 
+iniciar()
 
 })
+
 }
 
 function mediaNotas() {
@@ -181,14 +187,7 @@ function maiorNota (){
     }
 
 
-
-
-
-
-
-
-
-
+// menu iniciar
 
 function iniciar() {
 
@@ -216,8 +215,11 @@ function iniciar() {
             break;
         case '3':
             exibirAlunos();
+            iniciar();
             break;
         case '4':
+            console.log(`Lista de alunos disponíveis para exclusão`)
+            exibirAlunos()
             rl.question('Digite o nome do aluno a ser excluído: ', (inputNome) => {
                 const nome = inputNome.trim().toLocaleLowerCase()
                 excluirAluno(nome)
@@ -243,14 +245,3 @@ function iniciar() {
 
 
 iniciar()
-
-
-
-
-
-
-
-
-
-
-
