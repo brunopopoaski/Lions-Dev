@@ -68,7 +68,4 @@ percorreArray(listaDeCompras)
 percorreArray(listaDeVendas)
  */
 
-                                                          //EXERCICIO 3
-
-
 
