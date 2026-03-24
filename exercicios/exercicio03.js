@@ -6,8 +6,8 @@ const rl = readline.createInterface({
 })
 
 //ex 3
-let tentativa = ""
-let tentativa2 = ""
+let tentativa = 0
+let tentativa2 = 0
 
 
 
