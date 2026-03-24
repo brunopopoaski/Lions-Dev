@@ -4,7 +4,7 @@ const rl = readline.createInterface({
     output : process.stdout
 })
 
-const agoraData = new Date();
+const agoraData = new Date()
 const anoAtual = agoraData.getFullYear()
 
 function calculaIdade() {

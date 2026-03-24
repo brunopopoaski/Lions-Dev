@@ -1,10 +1,11 @@
+const { log } = require('console')
 const readline = require('readline')
 const rl = readline.createInterface({
     input: process.stdin,
     output : process.stdout
 })
 
-const agoraData = new Date();
+const agoraData = new Date()
 const anoAtual = agoraData.getFullYear()
 
 function calculaIdade() {
