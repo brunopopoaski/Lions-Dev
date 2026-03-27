@@ -1,4 +1,3 @@
-
 // Debug --- forma de testar o código antes de depurar no terminal
 /* 
  erro de sintaxe -- erro na escrita
@@ -15,7 +14,7 @@ function multiplicar(a, b){
 
 console.log(`${multiplicar(2, 3)}`)
 
- */
+*/
 
 // exercicio
 const readline = require('readline')
@@ -219,9 +218,6 @@ function editarNota(array) {
     })
 
 }
-
-
-
 
 function editandoUser(id) {
     cadastrados.forEach((alunoDados, indice) => {
