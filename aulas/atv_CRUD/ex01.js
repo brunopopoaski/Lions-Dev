@@ -1,5 +1,4 @@
 //config
-const { info } = require('console')
 const readline = require('readline')
 const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
 //</>
@@ -97,7 +96,7 @@ function maiorSalario() {
 }
 
 function menorSalario() {
-
+ 
     let salarioAtual = 0
     const salarioComparacao = listaFuncionarios[listaFuncionarios.length - 1].salario
     let salariomenor = salarioComparacao
@@ -228,5 +227,4 @@ function menu() {
         }
     })
 }
-
 menu()
